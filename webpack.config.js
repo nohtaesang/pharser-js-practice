@@ -1,13 +1,17 @@
 const path = require("path");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const dotenvWebpack = require("dotenv-webpack");
 
 module.exports = {
   entry: "./src/index.ts",
+  output: {
+    filename: "main.js",
+    path: path.resolve(__dirname, "dist"),
+  },
   mode: "development",
-  devtool: "inline-source-map",
+  devtool: "source-map",
   devServer: {
-    static: "./dist",
-    compress: true,
     port: 9000,
     hot: true,
   },
@@ -18,14 +22,28 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png)$/i,
+        use: [{ loader: "file-loader" }],
+      },
     ],
   },
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
   },
-  output: {
-    filename: "main.js",
-    path: path.resolve(__dirname, "./dist"),
-  },
-  plugins: [new HtmlWebpackPlugin()],
+
+  plugins: [
+    new CleanWebpackPlugin(),
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+      filename: "./index.html",
+    }),
+    new dotenvWebpack({
+      path: "./.env.development",
+    }),
+  ],
 };
