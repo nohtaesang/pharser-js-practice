@@ -1,27 +1,29 @@
 import "./index.css";
-import { World } from "matter";
 import { Game, Scene } from "phaser";
-// import test from "./assets/industrial-zone/3 Objects/0.png";
+import { Scene_CreateScene } from "./practices/Scene_CreateScene";
+import { Input_Pointer } from "./practices/Input_Pointer";
+import { Animation_Spritesheet } from "./practices/Animation_Spritesheet";
 
-class PracticeScene extends Scene {
+class MainScene extends Scene {
   constructor() {
-    super({ key: "PracticeScene" });
+    super("MainScene");
   }
 
-  preload() {
-    console.log("hihihi");
-    console.log(process.env.NODE_ENV);
-    // this.load.image("test", test);
-  }
+  preload() {}
+  init() {}
   create() {
-    // this.add.sprite(400, 300, "test");
+    const { scene } = this;
+    this.input.on("pointerdown", function (pointer) {
+      // scene.start("Input_Pointer");
+    });
   }
+  update() {}
 }
 
 const gameConfig = {
   width: "100vw",
   height: "100vh",
-  scene: [PracticeScene],
+  scene: [Animation_Spritesheet, MainScene, Scene_CreateScene, Input_Pointer],
 };
 
 const game = new Game(gameConfig);

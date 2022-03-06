@@ -23,6 +23,6 @@
     "webpack-dev-server": "^4.7.4"
   },
   "scripts": {
-    "dev": "yarn run webpack-dev-server --env development --config webpack.config.js --hot --open"
+    "dev": "yarn run webpack-dev-server --env development --config webpack.config.js --hot"
   }
 }
